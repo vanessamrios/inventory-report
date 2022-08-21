@@ -27,14 +27,16 @@ class Inventory:
             products = content["dataset"]["record"]
         return products
 
-    def import_data(path, type):
-
+    def read_path_content(path):
         if path.endswith(".csv"):
-            content = Inventory.read_csv(path)
+            return Inventory.read_csv(path)
         if path.endswith(".json"):
-            content = Inventory.read_json(path)
+            return Inventory.read_json(path)
         if path.endswith(".xml"):
-            content = Inventory.read_xml(path)
+            return Inventory.read_xml(path)
+
+    def import_data(path, type):
+        content = Inventory.read_path_content(path)
 
         if type == "simples":
             return SimpleReport.generate(content)
